@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>你真的有梗吗</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <section class="home-screen" id="home-screen" aria-label="你真的有梗吗首页">
+      <div class="home-content">
+        <div class="meme-stickers" aria-hidden="true">
+          <div class="sticker s1"><span><img src="assets/xianhua-img.jpg" alt="" style="width:3rem;height:3rem;object-fit:cover;border-radius:4px;" /></span><b>从今天开始显化</b></div>
+          <div class="sticker s2"><span><img src="assets/gogogo-img.jpg" alt="" style="width:3rem;height:3rem;object-fit:cover;border-radius:4px;" /></span><b>gogogo出发啰</b></div>
+          <div class="sticker s3"><span><img src="assets/nishenme-img.jpg" alt="" style="width:3rem;height:3rem;object-fit:cover;border-radius:4px;" /></span><b>你是我的神</b></div>
+          <div class="sticker s4"><span><img src="assets/sijua-img.jpg" alt="" style="width:3rem;height:3rem;object-fit:cover;border-radius:4px;" /></span><b>喝点丝瓜汤</b></div>
+          <div class="sticker s5"><span><img src="assets/tank-img.jpg" alt="" style="width:3rem;height:3rem;object-fit:cover;border-radius:4px;" /></span><b>坦克是没有</b></div>
+          <div class="sticker s6"><span><img src="assets/daodun-img.png" alt="" style="width:3rem;height:3rem;object-fit:cover;border-radius:4px;" /></span><b>我的刀盾</b></div>
+        </div>
+
+        <p class="poster-slogan">当热梗遇上进化，离谱就会无限升级！</p>
+        <div class="poster-title">
+          <span>2048x</span>
+          <strong>离谱进化</strong>
+        </div>
+        <p class="home-copy">合成一切热梗，进化全新离谱形态！</p>
+
+        <div class="merge-demo" aria-label="合成示例">
+          <div class="demo-tile">
+            <span><img src="assets/hagimi-cat.png" alt="" /></span>
+            <strong>哈吉米</strong>
+          </div>
+          <div class="demo-plus">+</div>
+          <div class="demo-tile">
+            <span><img src="assets/hagimi-cat.png" alt="" /></span>
+            <strong>哈吉米</strong>
+          </div>
+          <div class="demo-arrow">→</div>
+          <div class="demo-tile result">
+            <span><img src="assets/nanbeilvdou-cat.png" alt="" /></span>
+            <strong>南北绿豆</strong>
+          </div>
+        </div>
+
+        <div class="poster-hero" aria-hidden="true">
+          <div class="crown">♛</div>
+          <div class="hero-cat"><img src="assets/hagimi-emperor.png" alt="" /></div>
+          <strong>SSS 传说级 · 哈吉米皇</strong>
+          <span>技能：全场梗力 +99999</span>
+        </div>
+
+        <div class="mini-evolution" aria-label="进化预览">
+          <span><img src="assets/hagimi-cat.png" alt="" /> 哈吉米</span>
+          <b>→</b>
+          <span><img src="assets/nanbeilvdou-cat.png" alt="" style="width:1.4em;height:1.4em;object-fit:contain;vertical-align:middle;" /> 南北绿豆</span>
+          <b>→</b>
+          <span>🎩 高雅人士</span>
+          <b>→</b>
+          <span>❓ 未知形态</span>
+        </div>
+
+        <div class="home-actions">
+          <span>超多热梗等你来收集，让你的脑洞突破天际！</span>
+          <button class="home-start" id="start-game" type="button">立即进化 &gt;&gt;&gt;</button>
+        </div>
+      </div>
+    </section>
+
+    <main class="shell">
+      <section class="game-area" aria-label="你真的有梗吗">
+        <header class="topbar">
+          <div>
+            <p class="kicker">2048 × 离谱进化</p>
+            <h1>你真的有梗吗</h1>
+          </div>
+          <div class="score-row" aria-label="分数">
+            <div class="score-box">
+              <span>分数</span>
+              <strong id="score">0</strong>
+            </div>
+            <button class="score-box pedia-jump" id="pedia-jump" type="button">
+              <span>图鉴</span>
+              <strong id="found-count">1 / 100</strong>
+            </button>
+          </div>
+        </header>
+
+        <div class="stage">
+          <div class="board-wrap">
+            <div class="board" id="board" aria-label="4乘4进化合成棋盘"></div>
+            <div class="anim-layer" id="anim-layer" aria-hidden="true"></div>
+            <div class="overlay hidden" id="overlay">
+              <div class="overlay-panel">
+                <strong id="overlay-title">进化堵车了</strong>
+                <p id="overlay-text">没有能继续合成的相同等级了。</p>
+                <button class="primary" id="retry-button" type="button">重新开始</button>
+              </div>
+            </div>
+          </div>
+
+          <aside class="side-panel">
+            <div class="next-card">
+              <span class="label">刚刚接上</span>
+              <div class="discovery" id="discovery">
+                <div class="discovery-icon">🧩</div>
+                <div>
+                  <strong>两个相同合成下一级</strong>
+                  <p>比如两个「哈吉米」合成「南北绿豆」。</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="controls" aria-label="游戏操作">
+              <button class="icon-button" data-dir="up" type="button" aria-label="向上">↑</button>
+              <div class="middle-controls">
+                <button class="icon-button" data-dir="left" type="button" aria-label="向左">←</button>
+                <button class="primary" id="new-game" type="button">新一局</button>
+                <button class="icon-button" data-dir="right" type="button" aria-label="向右">→</button>
+              </div>
+              <button class="icon-button" data-dir="down" type="button" aria-label="向下">↓</button>
+            </div>
+
+            <div class="video-card">
+              <span class="label">梗视频</span>
+              <div class="video-placeholder" id="video-placeholder">
+                <span>🎬</span>
+                <p>合成新梗时触发</p>
+              </div>
+              <video id="hnjd-video" src="assets/hnjd-cat.mp4" playsinline controls style="display:none;width:100%;border-radius:6px;margin-top:8px;"></video>
+              <video id="sijua-video" src="assets/sijua.mp4" playsinline controls style="display:none;width:100%;border-radius:6px;margin-top:8px;"></video>
+              <video id="gaoya-video" src="assets/gaoya-penguin.mp4" playsinline controls style="display:none;width:100%;border-radius:6px;margin-top:8px;"></video>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <div class="pedia-modal hidden" id="pedia-modal" role="dialog" aria-modal="true" aria-label="梗图鉴">
+      <div class="pedia-modal-panel">
+        <div class="pedia-modal-header">
+          <div>
+            <span class="label">梗图鉴</span>
+            <strong id="recipe-count">1 / 100</strong>
+          </div>
+          <button class="pedia-close" id="pedia-close" type="button" aria-label="关闭">✕</button>
+        </div>
+        <div class="pedia-filter">
+          <button class="filter-button active" id="show-unlocked" type="button">已合成</button>
+          <button class="filter-button" id="show-all" type="button">全部</button>
+        </div>
+        <div class="pedia-modal-body">
+          <ol class="chain" id="chain"></ol>
+          <div class="pedia-detail" id="pedia-detail">
+            <div class="mini-icon"><img src="assets/hagimi-cat.png" alt="" /></div>
+            <div>
+              <strong>哈吉米</strong>
+              <p>初始梗。两个相同的梗会合成下一级。</p>
+              <span>进化路径：初始出现</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="roam-container" style="display:none;position:fixed;z-index:9999;cursor:pointer;filter:drop-shadow(0 8px 24px rgba(0,0,0,0.55));" title="点击关闭">
+      <video id="roam-video" src="assets/roam-cat.mp4" loop playsinline style="width:260px;border-radius:14px;display:block;pointer-events:none;"></video>
+      <div style="position:absolute;top:6px;right:8px;background:rgba(0,0,0,0.55);color:#fff;font-size:0.75rem;font-weight:900;padding:2px 8px;border-radius:20px;pointer-events:none;">✕ 点我关闭</div>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>
