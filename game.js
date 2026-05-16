@@ -22,6 +22,9 @@ const roamVideoEl = document.querySelector("#roam-video");
 const sijuaVideoEl = document.querySelector("#sijua-video");
 const videoPlaceholderEl = document.querySelector("#video-placeholder");
 const gaoyaVideoEl = document.querySelector("#gaoya-video");
+const bababoVideoEl = document.querySelector("#bababo-video");
+const laicaiVideoEl = document.querySelector("#laicai-video");
+const qinshihuangVideoEl = document.querySelector("#qinshihuang-video");
 
 let roamAnimId = null;
 let roamX = 0, roamY = 0, roamVX = 3.5, roamVY = 2.8;
@@ -72,7 +75,7 @@ roamContainerEl.addEventListener("click", () => {
 
 function hideAllVideos() {
   videoPlaceholderEl.style.display = "none";
-  [hnjdVideoEl, sijuaVideoEl, gaoyaVideoEl].forEach(v => {
+  [hnjdVideoEl, sijuaVideoEl, gaoyaVideoEl, bababoVideoEl, laicaiVideoEl, qinshihuangVideoEl].forEach(v => {
     v.pause();
     v.style.display = "none";
   });
@@ -310,14 +313,35 @@ async function move(direction) {
   const triggerHnjd  = result.unlocked.includes(2) && canTriggerVideo("hnjd");
   const triggerGaoya = result.unlocked.includes(3) && canTriggerVideo("gaoya");
   const triggerSijua = result.unlocked.includes(4) && canTriggerVideo("sijua");
+  const triggerBababo = result.unlocked.includes(6) && canTriggerVideo("bababo");
+  const triggerLaicai = result.unlocked.includes(8) && canTriggerVideo("laicai");
+  const triggerQinshihuang = result.unlocked.includes(10) && canTriggerVideo("qinshihuang");
   const beforeCount = unlockedLevels.size;
   result.unlocked.forEach((level) => unlockLevel(level));
-  if (beforeCount < 5 && unlockedLevels.size >= 5 && canTriggerVideo("roam")) {
+  if (beforeCount < 10 && unlockedLevels.size >= 10 && canTriggerVideo("roam")) {
     markVideoTriggered("roam");
     triggerRoamVideo();
   }
 
-  if (triggerGaoya) {
+  if (triggerQinshihuang) {
+    markVideoTriggered("qinshihuang");
+    hideAllVideos();
+    qinshihuangVideoEl.style.display = "block";
+    qinshihuangVideoEl.currentTime = 0;
+    qinshihuangVideoEl.play();
+  } else if (triggerLaicai) {
+    markVideoTriggered("laicai");
+    hideAllVideos();
+    laicaiVideoEl.style.display = "block";
+    laicaiVideoEl.currentTime = 0;
+    laicaiVideoEl.play();
+  } else if (triggerBababo) {
+    markVideoTriggered("bababo");
+    hideAllVideos();
+    bababoVideoEl.style.display = "block";
+    bababoVideoEl.currentTime = 0;
+    bababoVideoEl.play();
+  } else if (triggerGaoya) {
     markVideoTriggered("gaoya");
     triggerGaoyaVideo();
   } else if (triggerSijua) {
