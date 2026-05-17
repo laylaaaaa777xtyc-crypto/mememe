@@ -16,17 +16,25 @@ const startGameButtonEl = document.querySelector("#start-game");
 const homeBgmEl = document.querySelector("#home-bgm");
 homeBgmEl.volume = 0.7;
 let bgmStopped = false;
+let bgmWantsPlay = false;
 function tryPlayBgm() {
   if (bgmStopped) return;
-  homeBgmEl.play().catch(() => {});
+  bgmWantsPlay = true;
+  const p = homeBgmEl.play();
+  if (p && p.catch) p.catch(() => {});
 }
+homeBgmEl.addEventListener("canplay", () => {
+  if (bgmWantsPlay && !bgmStopped && homeBgmEl.paused) tryPlayBgm();
+});
+try { homeBgmEl.load(); } catch (_) {}
 tryPlayBgm();
 const unlockBgm = (e) => {
   if (e && e.target && e.target.closest && e.target.closest("#start-game")) return;
   tryPlayBgm();
 };
 homeScreenEl.addEventListener("pointerdown", unlockBgm);
-homeScreenEl.addEventListener("touchstart", unlockBgm);
+homeScreenEl.addEventListener("touchstart", unlockBgm, { passive: true });
+homeScreenEl.addEventListener("click", unlockBgm);
 document.addEventListener("keydown", unlockBgm);
 const overlayEl = document.querySelector("#overlay");
 const overlayTitleEl = document.querySelector("#overlay-title");
