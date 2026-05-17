@@ -654,6 +654,25 @@ startGameButtonEl.addEventListener("click", () => {
   bgmStopped = true;
   homeBgmEl.pause();
   homeBgmEl.currentTime = 0;
+  const allTriggerVideos = [
+    hnjdVideoEl, sijuaVideoEl, gaoyaVideoEl, bababoVideoEl, laicaiVideoEl,
+    qinshihuangVideoEl, tankVideoEl, daodunVideoEl, bielaoVideoEl,
+    gogogoVideoEl, zuowanVideoEl, wuchuangVideoEl, roamVideoEl, victoryVideoEl,
+  ];
+  allTriggerVideos.forEach((v) => {
+    if (!v) return;
+    v.muted = true;
+    const p = v.play();
+    if (p && p.then) {
+      p.then(() => {
+        v.pause();
+        v.currentTime = 0;
+        v.muted = false;
+      }).catch(() => {
+        v.muted = false;
+      });
+    }
+  });
 });
 const pediaModalEl = document.querySelector("#pedia-modal");
 
