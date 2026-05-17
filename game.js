@@ -39,21 +39,35 @@ document.addEventListener("keydown", unlockBgm);
 const overlayEl = document.querySelector("#overlay");
 const overlayTitleEl = document.querySelector("#overlay-title");
 const overlayTextEl = document.querySelector("#overlay-text");
-const hnjdVideoEl = document.querySelector("#hnjd-video");
+const memeVideoEl = document.querySelector("#meme-video");
 const roamContainerEl = document.querySelector("#roam-container");
 const roamVideoEl = document.querySelector("#roam-video");
-const sijuaVideoEl = document.querySelector("#sijua-video");
 const videoPlaceholderEl = document.querySelector("#video-placeholder");
-const gaoyaVideoEl = document.querySelector("#gaoya-video");
-const bababoVideoEl = document.querySelector("#bababo-video");
-const laicaiVideoEl = document.querySelector("#laicai-video");
-const qinshihuangVideoEl = document.querySelector("#qinshihuang-video");
-const tankVideoEl = document.querySelector("#tank-video");
-const daodunVideoEl = document.querySelector("#daodun-video");
-const bielaoVideoEl = document.querySelector("#bielao-video");
-const gogogoVideoEl = document.querySelector("#gogogo-video");
-const zuowanVideoEl = document.querySelector("#zuowan-video");
-const wuchuangVideoEl = document.querySelector("#wuchuang-video");
+const memeVideoSources = {
+  hnjd: "assets/hnjd-cat.mp4",
+  sijua: "assets/sijua.mp4",
+  gaoya: "assets/gaoya-penguin.mp4",
+  bababo: "assets/bababo-video.mp4",
+  laicai: "assets/laicai-video.mp4",
+  qinshihuang: "assets/qinshihuang-video.mp4",
+  tank: "assets/tank-video.mp4",
+  daodun: "assets/daodun-video.mp4",
+  bielao: "assets/bielao-video.mp4",
+  gogogo: "assets/gogogo-video.mp4",
+  zuowan: "assets/zuowan-video.mp4",
+  wuchuang: "assets/wuchuang-video.mp4",
+};
+function playMemeVideo(id) {
+  const src = memeVideoSources[id];
+  if (!src) return;
+  hideAllVideos();
+  memeVideoEl.src = src;
+  memeVideoEl.style.display = "block";
+  memeVideoEl.load();
+  memeVideoEl.currentTime = 0;
+  const p = memeVideoEl.play();
+  if (p && p.catch) p.catch(() => {});
+}
 const victoryOverlayEl = document.querySelector("#victory-overlay");
 const victoryVideoEl = document.querySelector("#victory-video");
 victoryVideoEl.addEventListener("ended", () => {
@@ -119,17 +133,8 @@ roamContainerEl.addEventListener("click", () => {
 
 function hideAllVideos() {
   videoPlaceholderEl.style.display = "none";
-  [hnjdVideoEl, sijuaVideoEl, gaoyaVideoEl, bababoVideoEl, laicaiVideoEl, qinshihuangVideoEl, tankVideoEl, daodunVideoEl, bielaoVideoEl, gogogoVideoEl, zuowanVideoEl, wuchuangVideoEl].forEach(v => {
-    v.pause();
-    v.style.display = "none";
-  });
-}
-
-function triggerGaoyaVideo() {
-  hideAllVideos();
-  gaoyaVideoEl.style.display = "block";
-  gaoyaVideoEl.currentTime = 0;
-  gaoyaVideoEl.play();
+  memeVideoEl.pause();
+  memeVideoEl.style.display = "none";
 }
 
 const evolutionChain = [
@@ -379,73 +384,40 @@ async function move(direction) {
     triggerVictory();
   } else if (triggerDaodun) {
     markVideoTriggered("daodun");
-    hideAllVideos();
-    daodunVideoEl.style.display = "block";
-    daodunVideoEl.currentTime = 0;
-    daodunVideoEl.play();
+    playMemeVideo("daodun");
   } else if (triggerTank) {
     markVideoTriggered("tank");
-    hideAllVideos();
-    tankVideoEl.style.display = "block";
-    tankVideoEl.currentTime = 0;
-    tankVideoEl.play();
+    playMemeVideo("tank");
   } else if (triggerZuowan) {
     markVideoTriggered("zuowan");
-    hideAllVideos();
-    zuowanVideoEl.style.display = "block";
-    zuowanVideoEl.currentTime = 0;
-    zuowanVideoEl.play();
+    playMemeVideo("zuowan");
   } else if (triggerGogogo) {
     markVideoTriggered("gogogo");
-    hideAllVideos();
-    gogogoVideoEl.style.display = "block";
-    gogogoVideoEl.currentTime = 0;
-    gogogoVideoEl.play();
+    playMemeVideo("gogogo");
   } else if (triggerWuchuang) {
     markVideoTriggered("wuchuang");
-    hideAllVideos();
-    wuchuangVideoEl.style.display = "block";
-    wuchuangVideoEl.currentTime = 0;
-    wuchuangVideoEl.play();
+    playMemeVideo("wuchuang");
   } else if (triggerQinshihuang) {
     markVideoTriggered("qinshihuang");
-    hideAllVideos();
-    qinshihuangVideoEl.style.display = "block";
-    qinshihuangVideoEl.currentTime = 0;
-    qinshihuangVideoEl.play();
+    playMemeVideo("qinshihuang");
   } else if (triggerLaicai) {
     markVideoTriggered("laicai");
-    hideAllVideos();
-    laicaiVideoEl.style.display = "block";
-    laicaiVideoEl.currentTime = 0;
-    laicaiVideoEl.play();
+    playMemeVideo("laicai");
   } else if (triggerBababo) {
     markVideoTriggered("bababo");
-    hideAllVideos();
-    bababoVideoEl.style.display = "block";
-    bababoVideoEl.currentTime = 0;
-    bababoVideoEl.play();
+    playMemeVideo("bababo");
   } else if (triggerBielao) {
     markVideoTriggered("bielao");
-    hideAllVideos();
-    bielaoVideoEl.style.display = "block";
-    bielaoVideoEl.currentTime = 0;
-    bielaoVideoEl.play();
+    playMemeVideo("bielao");
   } else if (triggerGaoya) {
     markVideoTriggered("gaoya");
-    triggerGaoyaVideo();
+    playMemeVideo("gaoya");
   } else if (triggerSijua) {
     markVideoTriggered("sijua");
-    hideAllVideos();
-    sijuaVideoEl.style.display = "block";
-    sijuaVideoEl.currentTime = 0;
-    sijuaVideoEl.play();
+    playMemeVideo("sijua");
   } else if (triggerHnjd) {
     markVideoTriggered("hnjd");
-    hideAllVideos();
-    hnjdVideoEl.style.display = "block";
-    hnjdVideoEl.currentTime = 0;
-    hnjdVideoEl.play();
+    playMemeVideo("hnjd");
   }
 
   addRandomTile();
@@ -654,12 +626,7 @@ startGameButtonEl.addEventListener("click", () => {
   bgmStopped = true;
   homeBgmEl.pause();
   homeBgmEl.currentTime = 0;
-  const allTriggerVideos = [
-    hnjdVideoEl, sijuaVideoEl, gaoyaVideoEl, bababoVideoEl, laicaiVideoEl,
-    qinshihuangVideoEl, tankVideoEl, daodunVideoEl, bielaoVideoEl,
-    gogogoVideoEl, zuowanVideoEl, wuchuangVideoEl, roamVideoEl, victoryVideoEl,
-  ];
-  allTriggerVideos.forEach((v) => {
+  [memeVideoEl, roamVideoEl, victoryVideoEl].forEach((v) => {
     if (!v) return;
     v.muted = true;
     const p = v.play();
