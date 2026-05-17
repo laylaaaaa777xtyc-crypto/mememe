@@ -42,6 +42,7 @@
         </div>
 
         <div class="poster-hero" aria-hidden="true">
+          <div class="hero-hint"><span class="hint-arrow">👈</span>点击哈吉米皇<br />获取曼波能量</div>
           <div class="crown">♛</div>
           <div class="hero-cat"><img src="assets/hagimi-emperor.png" alt="" /></div>
           <strong>SSS 传说级 · 哈吉米皇</strong>
@@ -131,6 +132,12 @@
               <video id="bababo-video" src="assets/bababo-video.mp4" playsinline controls style="display:none;width:100%;border-radius:6px;margin-top:8px;"></video>
               <video id="laicai-video" src="assets/laicai-video.mp4" playsinline controls style="display:none;width:100%;border-radius:6px;margin-top:8px;"></video>
               <video id="qinshihuang-video" src="assets/qinshihuang-video.mp4" playsinline controls style="display:none;width:100%;border-radius:6px;margin-top:8px;"></video>
+              <video id="tank-video" src="assets/tank-video.mp4" playsinline controls style="display:none;width:100%;border-radius:6px;margin-top:8px;"></video>
+              <video id="daodun-video" src="assets/daodun-video.mp4" playsinline controls style="display:none;width:100%;border-radius:6px;margin-top:8px;"></video>
+              <video id="bielao-video" src="assets/bielao-video.mp4" playsinline controls style="display:none;width:100%;border-radius:6px;margin-top:8px;"></video>
+              <video id="gogogo-video" src="assets/gogogo-video.mp4" playsinline controls style="display:none;width:100%;border-radius:6px;margin-top:8px;"></video>
+              <video id="zuowan-video" src="assets/zuowan-video.mp4" playsinline controls style="display:none;width:100%;border-radius:6px;margin-top:8px;"></video>
+              <video id="wuchuang-video" src="assets/wuchuang-video.mp4" playsinline controls style="display:none;width:100%;border-radius:6px;margin-top:8px;"></video>
             </div>
           </aside>
         </div>
@@ -169,6 +176,14 @@
       <div style="position:absolute;top:6px;right:8px;background:rgba(0,0,0,0.55);color:#fff;font-size:0.75rem;font-weight:900;padding:2px 8px;border-radius:20px;pointer-events:none;">✕ 点我关闭</div>
     </div>
 
+    <div class="victory-overlay hidden" id="victory-overlay" role="dialog" aria-modal="true">
+      <div class="victory-panel">
+        <p class="victory-text">亲爱的玩家，恭喜你已集成曼波之力，获得了哈吉米皇的认可，你将在收获一段强劲的舞蹈后回到原始状态</p>
+        <video id="victory-video" src="assets/mambo-victory.mp4" playsinline></video>
+      </div>
+    </div>
+
+    <audio id="home-bgm" src="assets/home-bgm.mp3" loop preload="auto"></audio>
     <script src="game.js"></script>
   </body>
 </html>

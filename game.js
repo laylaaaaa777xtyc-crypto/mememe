@@ -13,6 +13,21 @@ const showUnlockedEl = document.querySelector("#show-unlocked");
 const showAllEl = document.querySelector("#show-all");
 const homeScreenEl = document.querySelector("#home-screen");
 const startGameButtonEl = document.querySelector("#start-game");
+const homeBgmEl = document.querySelector("#home-bgm");
+homeBgmEl.volume = 0.7;
+let bgmStopped = false;
+function tryPlayBgm() {
+  if (bgmStopped) return;
+  homeBgmEl.play().catch(() => {});
+}
+tryPlayBgm();
+const unlockBgm = (e) => {
+  if (e && e.target && e.target.closest && e.target.closest("#start-game")) return;
+  tryPlayBgm();
+};
+homeScreenEl.addEventListener("pointerdown", unlockBgm);
+homeScreenEl.addEventListener("touchstart", unlockBgm);
+document.addEventListener("keydown", unlockBgm);
 const overlayEl = document.querySelector("#overlay");
 const overlayTitleEl = document.querySelector("#overlay-title");
 const overlayTextEl = document.querySelector("#overlay-text");
@@ -25,6 +40,27 @@ const gaoyaVideoEl = document.querySelector("#gaoya-video");
 const bababoVideoEl = document.querySelector("#bababo-video");
 const laicaiVideoEl = document.querySelector("#laicai-video");
 const qinshihuangVideoEl = document.querySelector("#qinshihuang-video");
+const tankVideoEl = document.querySelector("#tank-video");
+const daodunVideoEl = document.querySelector("#daodun-video");
+const bielaoVideoEl = document.querySelector("#bielao-video");
+const gogogoVideoEl = document.querySelector("#gogogo-video");
+const zuowanVideoEl = document.querySelector("#zuowan-video");
+const wuchuangVideoEl = document.querySelector("#wuchuang-video");
+const victoryOverlayEl = document.querySelector("#victory-overlay");
+const victoryVideoEl = document.querySelector("#victory-video");
+victoryVideoEl.addEventListener("ended", () => {
+  victoryOverlayEl.classList.add("hidden");
+  victoryVideoEl.pause();
+  unlockedLevels = new Set();
+  localStorage.removeItem(storageKey);
+  startGame();
+});
+function triggerVictory() {
+  hideAllVideos();
+  victoryOverlayEl.classList.remove("hidden");
+  victoryVideoEl.currentTime = 0;
+  victoryVideoEl.play().catch(() => {});
+}
 
 let roamAnimId = null;
 let roamX = 0, roamY = 0, roamVX = 3.5, roamVY = 2.8;
@@ -75,7 +111,7 @@ roamContainerEl.addEventListener("click", () => {
 
 function hideAllVideos() {
   videoPlaceholderEl.style.display = "none";
-  [hnjdVideoEl, sijuaVideoEl, gaoyaVideoEl, bababoVideoEl, laicaiVideoEl, qinshihuangVideoEl].forEach(v => {
+  [hnjdVideoEl, sijuaVideoEl, gaoyaVideoEl, bababoVideoEl, laicaiVideoEl, qinshihuangVideoEl, tankVideoEl, daodunVideoEl, bielaoVideoEl, gogogoVideoEl, zuowanVideoEl, wuchuangVideoEl].forEach(v => {
     v.pause();
     v.style.display = "none";
   });
@@ -108,6 +144,7 @@ const evolutionChain = [
   { name: "做完你的做你的", icon: "🧾", note: "听起来像任务，又像人生。", color: "#d4ef65" },
   { name: "坦克是没有后视镜的", icon: "🛡️", note: "只管往前，不看回头路。", color: "#9cc8ff" },
   { name: "心理委员呢我不得劲", icon: "🧠", note: "需要一点情绪救援。", color: "#f3a6ff" },
+  { name: "我的刀盾", icon: "🛡️", image: "assets/daodun-img.png", note: "刀盾在手，谁来都不慌。", color: "#ffd86b" },
 ];
 
 const absurdNames = [
@@ -313,9 +350,16 @@ async function move(direction) {
   const triggerHnjd  = result.unlocked.includes(2) && canTriggerVideo("hnjd");
   const triggerGaoya = result.unlocked.includes(3) && canTriggerVideo("gaoya");
   const triggerSijua = result.unlocked.includes(4) && canTriggerVideo("sijua");
+  const triggerBielao = result.unlocked.includes(5) && canTriggerVideo("bielao");
   const triggerBababo = result.unlocked.includes(6) && canTriggerVideo("bababo");
   const triggerLaicai = result.unlocked.includes(8) && canTriggerVideo("laicai");
   const triggerQinshihuang = result.unlocked.includes(10) && canTriggerVideo("qinshihuang");
+  const triggerWuchuang = result.unlocked.includes(13) && canTriggerVideo("wuchuang");
+  const triggerGogogo = result.unlocked.includes(14) && canTriggerVideo("gogogo");
+  const triggerZuowan = result.unlocked.includes(16) && canTriggerVideo("zuowan");
+  const triggerTank = result.unlocked.includes(17) && canTriggerVideo("tank");
+  const triggerDaodun = result.unlocked.includes(19) && canTriggerVideo("daodun");
+  const triggerVictoryNow = result.unlocked.includes(20);
   const beforeCount = unlockedLevels.size;
   result.unlocked.forEach((level) => unlockLevel(level));
   if (beforeCount < 10 && unlockedLevels.size >= 10 && canTriggerVideo("roam")) {
@@ -323,7 +367,39 @@ async function move(direction) {
     triggerRoamVideo();
   }
 
-  if (triggerQinshihuang) {
+  if (triggerVictoryNow) {
+    triggerVictory();
+  } else if (triggerDaodun) {
+    markVideoTriggered("daodun");
+    hideAllVideos();
+    daodunVideoEl.style.display = "block";
+    daodunVideoEl.currentTime = 0;
+    daodunVideoEl.play();
+  } else if (triggerTank) {
+    markVideoTriggered("tank");
+    hideAllVideos();
+    tankVideoEl.style.display = "block";
+    tankVideoEl.currentTime = 0;
+    tankVideoEl.play();
+  } else if (triggerZuowan) {
+    markVideoTriggered("zuowan");
+    hideAllVideos();
+    zuowanVideoEl.style.display = "block";
+    zuowanVideoEl.currentTime = 0;
+    zuowanVideoEl.play();
+  } else if (triggerGogogo) {
+    markVideoTriggered("gogogo");
+    hideAllVideos();
+    gogogoVideoEl.style.display = "block";
+    gogogoVideoEl.currentTime = 0;
+    gogogoVideoEl.play();
+  } else if (triggerWuchuang) {
+    markVideoTriggered("wuchuang");
+    hideAllVideos();
+    wuchuangVideoEl.style.display = "block";
+    wuchuangVideoEl.currentTime = 0;
+    wuchuangVideoEl.play();
+  } else if (triggerQinshihuang) {
     markVideoTriggered("qinshihuang");
     hideAllVideos();
     qinshihuangVideoEl.style.display = "block";
@@ -341,6 +417,12 @@ async function move(direction) {
     bababoVideoEl.style.display = "block";
     bababoVideoEl.currentTime = 0;
     bababoVideoEl.play();
+  } else if (triggerBielao) {
+    markVideoTriggered("bielao");
+    hideAllVideos();
+    bielaoVideoEl.style.display = "block";
+    bielaoVideoEl.currentTime = 0;
+    bielaoVideoEl.play();
   } else if (triggerGaoya) {
     markVideoTriggered("gaoya");
     triggerGaoyaVideo();
@@ -546,10 +628,24 @@ document.querySelectorAll("[data-dir]").forEach((button) => {
   button.addEventListener("click", () => move(button.dataset.dir));
 });
 
-document.querySelector("#new-game").addEventListener("click", startGame);
-document.querySelector("#retry-button").addEventListener("click", startGame);
+function fullReset() {
+  unlockedLevels = new Set();
+  localStorage.removeItem(storageKey);
+  videoTriggered.clear();
+  localStorage.removeItem(videoStorageKey);
+  selectedPediaLevel = 0;
+  pediaMode = "unlocked";
+  hideAllVideos();
+  videoPlaceholderEl.style.display = "";
+  startGame();
+}
+document.querySelector("#new-game").addEventListener("click", fullReset);
+document.querySelector("#retry-button").addEventListener("click", fullReset);
 startGameButtonEl.addEventListener("click", () => {
   homeScreenEl.classList.add("hidden");
+  bgmStopped = true;
+  homeBgmEl.pause();
+  homeBgmEl.currentTime = 0;
 });
 const pediaModalEl = document.querySelector("#pedia-modal");
 
