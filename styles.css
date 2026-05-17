@@ -1161,11 +1161,22 @@ button.score-box:hover {
 
 @media (max-width: 460px) {
   .home-screen {
-    padding: 10px;
+    padding: 6px 10px;
+    place-items: start center;
   }
 
   .meme-stickers {
     display: none;
+  }
+
+  .home-content {
+    gap: 4px;
+    padding-block: 4px;
+  }
+
+  .poster-slogan {
+    font-size: 0.78rem;
+    padding: 3px 10px;
   }
 
   .poster-title span {
@@ -1173,20 +1184,72 @@ button.score-box:hover {
   }
 
   .poster-title strong {
-    font-size: 2.55rem;
+    font-size: 2.4rem;
+  }
+
+  .home-copy {
+    font-size: 0.88rem;
+  }
+
+  .merge-demo {
+    gap: 8px;
+  }
+
+  .demo-tile {
+    min-height: 64px;
+    padding: 6px;
+  }
+
+  .demo-tile span:has(img) {
+    width: 48px;
+    height: 48px;
+  }
+
+  .demo-tile strong {
+    font-size: 0.78rem;
   }
 
   .poster-hero {
     width: 96%;
+    padding: 4px 10px;
+    gap: 0;
+  }
+
+  .crown {
+    font-size: 1.6rem;
+    margin-bottom: -10px;
   }
 
   .hero-cat {
+    width: 84px;
+    height: 84px;
     font-size: 3.8rem;
   }
 
-  .mini-evolution span {
-    font-size: 0.72rem;
-    padding: 6px 8px;
+  .poster-hero strong {
+    font-size: 1rem;
+  }
+
+  .poster-hero span {
+    font-size: 0.78rem;
+  }
+
+  .mini-evolution {
+    display: none;
+  }
+
+  .home-actions {
+    gap: 6px;
+  }
+
+  .home-actions span {
+    font-size: 0.82rem;
+  }
+
+  .home-start {
+    min-height: 52px;
+    font-size: 1.15rem;
+    padding: 0 22px;
   }
 
   .shell {
